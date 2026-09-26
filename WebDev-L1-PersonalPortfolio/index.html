@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Eswar Sai Krishna Gupta — Portfolio</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- NAVIGATION BAR -->
+  <header class="navbar">
+    <div class="logo">ESKG</div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="#about">About</a></li>
+        <li><a href="#skills">Skills</a></li>
+        <li><a href="#projects">Projects</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <!-- PROFILE / HERO SECTION -->
+  <section id="about" class="hero">
+    <div class="avatar">
+      <img src="photo.jpg" alt="Thunuguntla Eswar Sai Krishna Gupta">
+    </div>
+    <h1>Thunuguntla Eswar Sai Krishna Gupta</h1>
+    <p class="role-title">B.Sc. Computer Science & AI Student | AI Intern @ FlyRank AI</p>
+    <p class="about-text">
+      Currently pursuing a B.Sc. in Computer Science & AI at Sri Sathya Sai Institute
+      of Higher Learning. Passionate about programming, artificial intelligence,
+      cybersecurity, and data analytics — currently building practical experience
+      through coursework, personal projects, and internships.
+    </p>
+  </section>
+
+  <!-- SKILLS SECTION -->
+  <section id="skills" class="skills">
+    <h2>Skills</h2>
+    <p class="skills-hint">Click on a skill to see related certificates & experience</p>
+    <div class="skills-grid">
+      <div class="skill-item" onclick="toggleSkillInfo('c')">C</div>
+      <div class="skill-item" onclick="toggleSkillInfo('cpp')">C++</div>
+      <div class="skill-item" onclick="toggleSkillInfo('python')">Python</div>
+      <div class="skill-item" onclick="toggleSkillInfo('r')">R</div>
+      <div class="skill-item" onclick="toggleSkillInfo('data')">Data Analytics</div>
+      <div class="skill-item" onclick="toggleSkillInfo('ai')">Artificial Intelligence</div>
+      <div class="skill-item" onclick="toggleSkillInfo('cyber')">Cybersecurity Fundamentals</div>
+      <div class="skill-item" onclick="toggleSkillInfo('git')">Git/GitHub</div>
+      <div class="skill-item" onclick="toggleSkillInfo('vscode')">VS Code</div>
+      <div class="skill-item" onclick="toggleSkillInfo('jupyter')">Jupyter Notebook</div>
+    </div>
+
+    <!-- INFO BOX (hidden by default, shown when a skill is clicked) -->
+    <div id="skill-info-box" class="skill-info-box" style="display: none;">
+      <button class="close-btn" onclick="closeSkillInfo()">&times;</button>
+      <h3 id="skill-info-title"></h3>
+      <p id="skill-info-content"></p>
+      <div id="skill-info-cert"></div>
+    </div>
+  </section>
+
+  <!-- PROJECTS SECTION -->
+  <section id="projects" class="projects">
+    <h2>Projects</h2>
+    <div class="project-cards">
+      <div class="project-card">
+        <h3>AarogyaAI — Health Assistant</h3>
+        <p>A prototype focused on providing accessible health-related assistance using AI.</p>
+        <a href="#" class="project-link">View on GitHub →</a>
+      </div>
+      <div class="project-card">
+        <h3>Festival Donation Transparency Tracker</h3>
+        <p>A basic web application for recording donations and displaying the total amount transparently.</p>
+        <a href="#" class="project-link">View on GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT SECTION -->
+  <section id="contact" class="contact">
+    <h2>Get In Touch</h2>
+    <p>Email: <a href="mailto:eswarskgt@gmail.com">eswarskgt@gmail.com</a></p>
+    <div class="socials">
+      <a href="https://linkedin.com/in/eswarsaikrishnaguptathunuguntla" target="_blank">LinkedIn</a>
+      <a href="#" target="_blank">GitHub</a>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <p>&copy; 2026 Thunuguntla Eswar Sai Krishna Gupta. All rights reserved.</p>
+  </footer>
+
+  <!-- JAVASCRIPT: Skills click-to-show info -->
+  <script>
+    const skillData = {
+      c: {
+        title: "C Programming",
+        content: "Certificate in C-Language — SiCE Computer Education. Used in academic coursework covering programming fundamentals.",
+        certLink: "C_Language_Certificate.png"
+      },
+      cpp: {
+        title: "C++ Programming",
+        content: "C++ Programming Language — MindLuster. Applied in coursework and problem-solving exercises."
+      },
+      python: {
+        title: "Python Programming",
+        content: "Certificate in Python — SiCE Computer Education. Actively used in AI/ML coursework and personal projects like AarogyaAI.",
+        certLink: "Python_Certificate.png"
+      },
+      r: {
+        title: "R Programming",
+        content: "Studied as part of Data Analytics coursework at Sri Sathya Sai Institute of Higher Learning — used for statistical analysis and visualization."
+      },
+      data: {
+        title: "Data Analytics",
+        content: "Coursework in Data Analytics covering data analysis and visualization techniques as part of the B.Sc. CS & AI program."
+      },
+      ai: {
+        title: "Artificial Intelligence",
+        content: "Currently working as an AI Intern at FlyRank AI (Backend AI Engineering), applying AI concepts to real-world backend projects. Also completed 'Prompt Engineering for Everyone' — Cognitive Class.",
+        certLink: "Prompt_Engineering_Certificate.pdf"
+      },
+      cyber: {
+        title: "Cybersecurity Fundamentals",
+        content: "Studied as part of academic coursework — covering foundational security concepts and best practices."
+      },
+      git: {
+        title: "Git & GitHub",
+        content: "Used for version control and project submissions, including internship task repositories (e.g., OIBSIP)."
+      },
+      vscode: {
+        title: "VS Code",
+        content: "Primary code editor used for all programming coursework and personal/internship projects."
+      },
+      jupyter: {
+        title: "Jupyter Notebook",
+        content: "Used for data analytics and Python-based project work, including exploratory data analysis."
+      }
+    };
+
+    function toggleSkillInfo(skillKey) {
+      const box = document.getElementById('skill-info-box');
+      const title = document.getElementById('skill-info-title');
+      const content = document.getElementById('skill-info-content');
+      const certArea = document.getElementById('skill-info-cert');
+
+      const data = skillData[skillKey];
+      title.textContent = data.title;
+      content.textContent = data.content;
+
+      if (data.certLink) {
+        certArea.innerHTML = `<a href="${data.certLink}" target="_blank" class="cert-link">📄 View Certificate</a>`;
+      } else {
+        certArea.innerHTML = '';
+      }
+
+      box.style.display = 'block';
+      box.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    function closeSkillInfo() {
+      document.getElementById('skill-info-box').style.display = 'none';
+    }
+  </script>
+
+</body>
+</html>
