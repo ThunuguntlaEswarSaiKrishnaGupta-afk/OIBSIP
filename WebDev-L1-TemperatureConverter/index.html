@@ -47,6 +47,12 @@
   </div>
 
   <script>
+    // Format a number to 2 decimals, and avoid showing "-0.00"
+    function formatNumber(n) {
+      const text = n.toFixed(2);
+      return text === '-0.00' ? '0.00' : text;
+    }
+
     function convertTemperature() {
       const inputVal = document.getElementById('tempValue').value.trim();
       const unit = document.getElementById('unitSelect').value;
@@ -57,13 +63,22 @@
       errorBox.textContent = '';
       resultBox.style.display = 'none';
 
-      // Validate: check if input is a valid number
-      if (inputVal === '' || isNaN(inputVal)) {
+      // Validate: only plain numbers are allowed (e.g. 25, -40, 98.6, .5)
+      // This rejects empty input, letters, hex like 0x10, and the word "Infinity"
+      const validNumber = /^[+-]?(\d+(\.\d*)?|\.\d+)$/;
+      if (!validNumber.test(inputVal)) {
         errorBox.textContent = 'Please enter a valid number.';
         return;
       }
 
-      const value = parseFloat(inputVal);
+      const value = Number(inputVal);
+
+      // Guard against numbers so large they overflow to Infinity
+      if (!Number.isFinite(value)) {
+        errorBox.textContent = 'That number is too large. Please enter a smaller value.';
+        return;
+      }
+
       let celsius, fahrenheit, kelvin;
 
       // Convert input value to Celsius first (as a common base)
@@ -75,8 +90,11 @@
         celsius = value - 273.15;
       }
 
-      // Check for absolute zero violation
-      if (celsius < -273.15) {
+      // Check for absolute zero violation.
+      // A tiny tolerance (1e-9) stops decimal rounding errors from rejecting
+      // exact absolute zero, e.g. -459.67 °F.
+      const ABSOLUTE_ZERO_C = -273.15;
+      if (celsius < ABSOLUTE_ZERO_C - 1e-9) {
         errorBox.textContent = 'Temperature cannot be below absolute zero (-273.15°C).';
         return;
       }
@@ -86,9 +104,9 @@
       kelvin = celsius + 273.15;
 
       // Display results, rounded to 2 decimal places
-      document.getElementById('resultCelsius').textContent = celsius.toFixed(2) + ' °C';
-      document.getElementById('resultFahrenheit').textContent = fahrenheit.toFixed(2) + ' °F';
-      document.getElementById('resultKelvin').textContent = kelvin.toFixed(2) + ' K';
+      document.getElementById('resultCelsius').textContent = formatNumber(celsius) + ' °C';
+      document.getElementById('resultFahrenheit').textContent = formatNumber(fahrenheit) + ' °F';
+      document.getElementById('resultKelvin').textContent = formatNumber(kelvin) + ' K';
 
       resultBox.style.display = 'block';
     }
